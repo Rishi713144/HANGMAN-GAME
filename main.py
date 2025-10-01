@@ -6,13 +6,14 @@
 int main() {
     Hangman game;
     char guess;
+    int player = 1; // Track current player (1 or 2)
 
-    std::cout << "Welcome to Hangman!\n";
+    std::cout << "Welcome to 2-Player Hangman!\n";
     game.startGame();
 
     while (!game.isGameOver()) {
         game.displayGameState();
-        std::cout << "Enter a letter: ";
+        std::cout << "Player " << player << ", enter a letter: ";
         std::cin >> guess;
 
         // Input validation
@@ -30,14 +31,14 @@ int main() {
         }
         
         game.makeGuess(guess);
+        player = (player == 1) ? 2 : 1; // Switch players
     }
 
     game.displayGameState();
     if (game.isWordGuessed()) {
-        std::cout << "Congratulations! You guessed the word!\n";
+        std::cout << "Player " << (player == 1 ? 2 : 1) << " wins! The word was guessed!\n";
     } else {
         std::cout << "Game Over! The word was: " << game.getWord() << "\n";
     }
 
     return 0;
-}
